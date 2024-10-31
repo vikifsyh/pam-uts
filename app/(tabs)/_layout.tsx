@@ -1,34 +1,135 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import React from "react";
+import { Tabs } from "expo-router";
+import Icon from "@/constants/Icon";
+import { Text, View } from "react-native";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+interface CustomLabelProps {
+  title: string;
+  focused: boolean;
+}
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+const CustomLabel: React.FC<CustomLabelProps> = ({ title, focused }) => (
+  <View style={{ alignItems: "center" }}>
+    <Text
+      style={{
+        color: focused ? "#4163E7" : "#292D32",
+        fontWeight: "500",
+        fontSize: 12,
+      }}
+    >
+      {title}
+    </Text>
+  </View>
+);
 
+export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+        tabBarStyle: {
+          backgroundColor: "white",
+          height: 74,
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          shadowColor: "black",
+          shadowOpacity: 0.8,
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View
+              className={`px-2 py-1 ${
+                focused ? "bg-[#B1C0F9]" : "bg-transparent"
+              } rounded-lg`}
+            >
+              <Icon name="home" color={focused ? "#1B8C78" : "#292D32"} />
+            </View>
+          ),
+          tabBarLabel: ({ focused }) => (
+            <CustomLabel title="Beranda" focused={focused} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="book"
+        options={{
+          title: "Buku",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View
+              className={`px-2 py-1 ${
+                focused ? "bg-[#B1C0F9]" : "bg-transparent"
+              } rounded-lg`}
+            >
+              <Icon name="book" color={focused ? "#4163E7" : "#292D32"} />
+            </View>
+          ),
+          tabBarLabel: ({ focused }) => (
+            <CustomLabel title="Buku" focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="add"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          title: "",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View
+              className="p-4 rounded-full bg-[#4163E7]"
+              style={{
+                position: "absolute",
+                bottom: 30,
+                alignSelf: "center",
+                zIndex: 1,
+              }}
+            >
+              <Icon name="pen" color={"white"} />
+            </View>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="community"
+        options={{
+          title: "Komunitas",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View
+              className={`px-2 py-1 ${
+                focused ? "bg-[#B1C0F9]" : "bg-transparent"
+              } rounded-lg`}
+            >
+              <Icon name="community" color={focused ? "#4163E7" : "#292D32"} />
+            </View>
+          ),
+          tabBarLabel: ({ focused }) => (
+            <CustomLabel title="Komunitas" focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Saya",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View
+              className={`px-2 py-1 ${
+                focused ? "bg-[#B1C0F9]" : "bg-transparent"
+              } rounded-lg`}
+            >
+              <Icon name="profile" color={focused ? "#4163E7" : "#292D32"} />
+            </View>
+          ),
+          tabBarLabel: ({ focused }) => (
+            <CustomLabel title="Saya" focused={focused} />
           ),
         }}
       />
